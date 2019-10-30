@@ -67,8 +67,8 @@ class SubmissionsController < ApplicationController
       @submission = Submission.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:title, :body, :url)
+      params.require(:submission).permit(:title, :body, :url, :submission_image)
     end
 end
