@@ -31,6 +31,8 @@ gem 'devise', git: 'https://github.com/plataformatec/devise'
 gem 'carrierwave', '~> 2.0', '>= 2.0.2'
 #Manipulate images with minimal use of memory via ImageMagick / GraphicsMagick
 gem 'mini_magick', '~> 4.9', '>= 4.9.5'
+#Library for validating urls
+gem 'validate_url', '~> 1.0', '>= 1.0.8'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
