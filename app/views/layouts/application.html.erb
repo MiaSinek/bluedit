@@ -21,6 +21,7 @@
           <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans"><%= message %></div>
         </div>
       <% end %>
+
       <% if type == "notice" %>
         <div class="bg-green-500">
           <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans"><%= message %></div>
@@ -33,7 +34,7 @@
       <div class="flex flex-wrap items-center justify-center lg:justify-start lg:content-center px-4 lg:px-6">
 
         <%= link_to root_path, class:"leading-normal no-underline text-gray-800 my-2 md:my-0" do %>
-          <h1 class="text-lg pr-2">BLUEDIT</h1>
+          <h1 class="text-lg pr-2 font-bold">BLUEDIT</h1>
         <% end %>
 
         <div class="flex flex-wrap justify-start w-full lg:w-2/3">
@@ -77,7 +78,7 @@
             <div class="dropdown rounded bg-white border border-gray-400 text-gray-600 ml-1 hover:bg-gray-200">
               <div class="dropdown-content pt-2 pb-2 pl-3 pr-1">
                 <%= link_to "#", class: "js-dropdown-user-target no-underline flex justify-between text-gray-700 uppercase text-xs tracking-wide items-center font-semibold" do %>
-                  <%= current_user.name  if current_user.name %>
+                  <%= current_user.username  if current_user.username %>
                   <%= render_svg 'icons/chevron-down' %>
                 <% end %>
                   <ul class="list-reset hidden dropdown-list absolute pin-l rounded-b border border-gray-500 shadow">
