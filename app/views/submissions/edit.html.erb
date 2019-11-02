@@ -1,6 +1,15 @@
-<h1>Editing Submission</h1>
+<%= content_for :primary_content do %>
+  <div class="lg:p-10 pt-10 pb-10 px-4">
+    <h1 class="text-xl font-normal mb-6">Edit Submission</h1>
+    <%= render 'form', submission: @submission %>
+  </div>
+<% end %>
 
-<%= render 'form', submission: @submission %>
+<%= content_for :secondary_content do %>
+  <%= render 'guidelines' %>
+<% end %>
 
-<%= link_to 'Show', @submission %> |
-<%= link_to 'Back', submissions_path %>
+<%= render "basic_layout" %>
+
+
+
