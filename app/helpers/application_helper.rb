@@ -4,4 +4,9 @@ module ApplicationHelper
     title ||= name.underscore.humanize
     inline_svg(filename, aria: true, nocomment: true, title: title, class: styles)
   end
+
+
+  def comment
+  end
+
 end
