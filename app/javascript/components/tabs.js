@@ -1,3 +1,5 @@
+// TODO: Make this page-specific and only load for submissions/new+edit
+
 document.addEventListener('turbolinks:load', () => {
   const tabs = document.querySelectorAll('li[role=tab]');
 
@@ -5,9 +7,11 @@ document.addEventListener('turbolinks:load', () => {
   const imageVideo = document.querySelector('.image_video');
   const url = document.querySelector('.url');
 
-  imageVideo.classList.add('hidden');
-  url.classList.add('hidden');
-
+  if (imageVideo != null) {
+    imageVideo.classList.add('hidden');
+    url.classList.add('hidden');
+  }
+  
   function onTabClick(event) {
     const activeTabs = document.querySelectorAll('.active');
 
