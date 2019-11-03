@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_01_152543) do
+ActiveRecord::Schema.define(version: 2019_11_03_204512) do
+
+  create_table "communities", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.text "description"
+    t.text "sidebar"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_communities_on_name", unique: true
+  end
 
   create_table "submissions", force: :cascade do |t|
     t.string "title"
@@ -21,6 +31,8 @@ ActiveRecord::Schema.define(version: 2019_11_01_152543) do
     t.string "submission_image"
     t.string "submission_video"
     t.integer "user_id"
+    t.integer "community_id", default: 1, null: false
+    t.index ["community_id"], name: "index_submissions_on_community_id"
     t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
@@ -38,5 +50,6 @@ ActiveRecord::Schema.define(version: 2019_11_01_152543) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "submissions", "communities"
   add_foreign_key "submissions", "users"
 end
