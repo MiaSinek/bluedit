@@ -14,7 +14,7 @@ class CommunitiesController < ApplicationController
 
   # GET /communities/new
   def new
-    @community = Community.new
+   @community = current_user.communities.new
   end
 
   # GET /communities/1/edit
@@ -24,7 +24,7 @@ class CommunitiesController < ApplicationController
   # POST /communities
   # POST /communities.json
   def create
-    @community = Community.new(community_params)
+    @community = current_user.communities.new(community_params)
 
     respond_to do |format|
       if @community.save
