@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @submission.comments.new(comment_params)
 
-    # @comment.user_id = current_user.id
+    @comment.user_id = current_user.id
 
     #Refactor this according to Ivan
     respond_to do |format|
