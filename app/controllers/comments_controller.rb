@@ -1,11 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_comment, only: [:edit, :update, :destroy]
-  before_action :set_submission
-
-  def new
-    #@comment = @submission.comments.new
-  end
+  before_action :set_comment, only: [:update, :destroy]
+  before_action :set_submission, only: [:create, :update, :destroy]
 
   def create
     @comment = @submission.comments.new(comment_params)
@@ -15,16 +11,15 @@ class CommentsController < ApplicationController
     #Refactor this according to Ivan
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to submission_path(@submission), notice: "Comment was successfully created."  }
-        #format.js #renders create.js.erb (ajax)
+        # format.html { redirect_to submission_path(@submission), notice: "Comment was successfully created."  }
+        format.js #renders create.js.erb (ajax)
+        # format.json { render json: @comment, status: :created, location: @comment }
       else
-        format.html { redirect_to submission_path(@submission), notice: "Your comment did not save. Please try again." }
-        #format.js
+        # format.html { redirect_to submission_path(@submission), notice: "Your comment did not save. Please try again." }
+        format.js
+        # format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def edit
   end
 
   def update
