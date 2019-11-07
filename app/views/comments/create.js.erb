@@ -1,5 +1,5 @@
 var comments = document.getElementById("comments");
-var commentField = document.getElementById("comment_reply");
+var commentField = document.getElementById("comment_body");
 
 <%# TODO: y u add this to the end//1?!? %>
 comments.insertAdjacentHTML("beforeend", "<%= escape_javascript(render(@comment)) %>");

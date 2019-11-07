@@ -80,7 +80,7 @@
 
           <% if user_signed_in? %>
             <div class="dropdown rounded bg-white text-gray-700 ml-1 hover:bg-gray-200">
-              <%= link_to "#", class: "dropdown-target rounded border no-underline flex justify-between text-gray-700 uppercase tracking-wider text-xs font-semibold items-center pt-2 pb-2 pl-3 pr-1", role: "button" do %>
+              <%= link_to '#', class: "dropdown-target rounded border no-underline flex justify-between text-gray-700 uppercase tracking-wider text-xs font-semibold items-center pt-2 pb-2 pl-3 pr-1", role: "button" do %>
                 <%= current_user.username if current_user.username %>
                 <%= render_svg 'icons/chevron-down' %>
               <% end %>
@@ -88,8 +88,7 @@
                   <h5 class="mt-2 uppercase text-xs text-gray-500 font-normal py-2 pl-3 tracking-wider">My Stuff</h5>
 
                   <li>
-                    <%#= link_to profile_path(current_user), class: "hover:bg-purple-500 hover:text-white text-gray-700 no-underline block py-2 px-4 flex items-center text-sm" do %>
-                    <%= link_to '#', class: "hover:bg-purple-500 hover:text-white text-gray-700 no-underline block py-2 px-4 flex items-center text-sm" do %>
+                    <%= link_to profile_path(current_user), class: "hover:bg-purple-500 hover:text-white text-gray-700 no-underline block py-2 px-4 flex items-center text-sm" do %>
                       <%= render_svg 'icons/user', styles: "icon-md fill-current text-gray-600 mr-3" %> My Profile
                     <% end %>
                   </li>
