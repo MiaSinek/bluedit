@@ -1,4 +1,4 @@
-<div class="flex items-start py-1 mt-2 items-start">
+<div class="flex items-start py-1 mt-2 items-start" id="comment-<%= comment.id %>" >
   <div class="flex flex-col items-start">
     <%= link_to "#" do %>
       <%= render_svg "icons/up-vote", title: "upvote", styles: "fill-current text-gray-600 hover:text-purple-500" %>
@@ -9,7 +9,7 @@
     <% end %>
   </div>
   <div class="flex-1 pl-4">
-    <%#= render 'submissions/posted_by', submission: comment %>
+    <%= render 'submissions/posted_by', submission: comment %>
     <div class="text-gray-800 leading-normal text-sm"><%= comment.body %></div>
 
     <div class="my-2 flex">
