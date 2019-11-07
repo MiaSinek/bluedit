@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_comment, only: [:update, :destroy]
-  before_action :set_submission, only: [:create, :update, :destroy]
+  before_action :set_comment, only: [:edit, :update, :destroy]
+  before_action :set_submission, only: [:create, :update, :edit, :destroy]
 
   def create
     @comment = @submission.comments.new(comment_params)
@@ -22,12 +22,15 @@ class CommentsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def update
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to submission_path(@submission), notice: "Comment was successfully updated." }
       else
-        format.html { render :edit, notice: "Comment could not be updated. Please fix indicated errors." }
+        format.html { redirect_to submission_path(@submission), alert: "Comment could not be updated. Please fix indicated errors." }
         #format.json { render json: @comment.errors, status: unprocessable_entity }
       end
     end
