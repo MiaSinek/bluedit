@@ -6,12 +6,19 @@ document.addEventListener('turbolinks:load', () => {
   const post = document.querySelector('.post');
   const imageVideo = document.querySelector('.image_video');
   const url = document.querySelector('.url');
+  // user profile
+  const submissions = document.getElementById('profile_submissions');
+  const comments = document.getElementById('profile_comments');
 
   if (imageVideo != null) {
     imageVideo.classList.add('hidden');
     url.classList.add('hidden');
   }
-  
+
+  if (comments != null) {
+    comments.classList.add('hidden');
+  }
+
   function onTabClick(event) {
     const activeTabs = document.querySelectorAll('.active');
 
@@ -30,7 +37,9 @@ document.addEventListener('turbolinks:load', () => {
   }
 
   function determineType(event) {
-    hidePostSpecificAreas();
+    if (imageVideo != null) {
+      hidePostSpecificAreas();
+    }
 
     // Post
     if (event.currentTarget.dataset.tab == "post") {
@@ -52,6 +61,18 @@ document.addEventListener('turbolinks:load', () => {
       url.classList.remove('hidden');
 
       post.querySelector("textarea").value = "";
+    }
+
+    // Profile Submissions
+    if (event.currentTarget.dataset.tab == "profile_submissions") {
+      submissions.classList.remove('hidden');
+      comments.classList.add('hidden');
+    }
+
+    // Profile Comments
+    if (event.currentTarget.dataset.tab == "profile_comments") {
+      comments.classList.remove('hidden');
+      submissions.classList.add('hidden');
     }
   }
 
