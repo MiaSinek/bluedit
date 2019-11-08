@@ -35,6 +35,8 @@ gem 'mini_magick', '~> 4.9', '>= 4.9.5'
 gem 'validate_url', '~> 1.0', '>= 1.0.8'
 #Get an SVG into your view and then style it with CSS.
 gem 'inline_svg', '~> 1.5', '>= 1.5.2'
+#Allow records to be votable
+gem 'acts_as_votable', '~> 0.12.1'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
