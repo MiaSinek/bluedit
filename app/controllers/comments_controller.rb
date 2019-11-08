@@ -1,44 +1,52 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_comment, only: [:edit, :update, :destroy]
-  before_action :set_submission, only: [:create, :update, :edit, :destroy]
+  before_action :set_submission, only: [:create, :update, :edit, :destroy, :upvote, :downvote]
 
   def create
     @comment = @submission.comments.new(comment_params)
 
     @comment.user_id = current_user.id
 
-    #Refactor this according to Ivan
-    respond_to do |format|
-      if @comment.save
-        # format.html { redirect_to submission_path(@submission), notice: "Comment was successfully created."  }
-        format.js #renders create.js.erb (ajax)
-        # format.json { render json: @comment, status: :created, location: @comment }
-      else
-        # format.html { redirect_to submission_path(@submission), notice: "Your comment did not save. Please try again." }
-        format.js
-        # format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
+    @comment.save
   end
 
   def edit
   end
 
   def update
-    respond_to do |format|
-      if @comment.update(comment_params)
-        format.html { redirect_to submission_path(@submission), notice: "Comment was successfully updated." }
-      else
-        format.html { redirect_to submission_path(@submission), alert: "Comment could not be updated. Please fix indicated errors." }
-        #format.json { render json: @comment.errors, status: unprocessable_entity }
-      end
+    if @comment.update(comment_params)
+      redirect_to submission_path(@submission), notice: "Comment was successfully updated."
+    else
+      redirect_to submission_path(@submission), alert: "Comment could not be updated. Please fix indicated errors."
     end
   end
 
   def destroy
     @comment.destroy
     redirect_to submission_path(@submission)
+  end
+
+  def upvote
+    @comment = @submission.comments.find(params[:id])
+
+    unless current_user.voted_for? @comment
+      @comment.upvote_by current_user
+      flash.now[:notice] = "Successfully upvoted comment"
+    else
+      flash.now[:notice] = "You already voted for this comment"
+    end
+  end
+
+  def downvote
+    @comment = @submission.comments.find(params[:id])
+
+    unless current_user.voted_for? @comment
+      flash.now[:notice] = "Successfully downvoted comment"
+      @comment.downvote_by current_user
+    else
+        flash.now[:notice] = "You already voted for this comment"
+    end
   end
 
   private
