@@ -67,12 +67,12 @@ class SubmissionsController < ApplicationController
     respond_to do |format|
       unless current_user.voted_for? @submission
         @submission.upvote_by current_user
-        format.html { redirect_back(fallback_location: root_path, notice: 'Glad you liked it!') }
-        format.json { head :no_content }
+        # format.html { redirect_back(fallback_location: root_path, notice: 'Glad you liked it!') }
+        # format.json { head :no_content }
         format.js { flash.now[:notice] = "Successfully upvoted submission" }
       else
-        format.html { redirect_back(fallback_location: root_path, notice: "Nah, I didn't like it either!")  }
-        format.json { head :no_content }
+        # format.html { redirect_back(fallback_location: root_path, notice: "Nah, I didn't like it either!")  }
+        # format.json { head :no_content }
         format.js { flash.now[:notice] = "You already voted for this submission" }
       end
     end
