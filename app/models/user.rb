@@ -5,11 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :submissions
-  has_many :communities
   has_many :comments
-
   has_many :subscriptions
-  has_many :communities, through: :subscriptions
+
+  has_many :communities_authored, class_name: 'Community'
+  has_many :communities_subscribed_to, through: :subscriptions, source: :community
+  has_many :submissions_subscribed_to, through: :communities_subscribed_to, source: :submissions
 
   validates_uniqueness_of :username
   validates_presence_of :username
