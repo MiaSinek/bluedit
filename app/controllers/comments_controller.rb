@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
 
     if @comment.save
-      SubmissionMailer.with(comment: @comment, submission: @submission).new_response.deliver_now
+      SubmissionMailer.with(comment: @comment, submission: @submission).new_response.deliver_later
     end
   end
 
