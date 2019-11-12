@@ -5,10 +5,11 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @submission.comments.new(comment_params)
-
     @comment.user_id = current_user.id
 
-    @comment.save
+    if @comment.save
+      SubmissionMailer.with(comment: @comment, submission: @submission).new_response.deliver_now
+    end
   end
 
   def edit
