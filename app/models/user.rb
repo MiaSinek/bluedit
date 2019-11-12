@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  before_create :add_unsubscribe_hash
+
   has_many :submissions
   has_many :comments
   has_many :subscriptions
@@ -16,4 +18,10 @@ class User < ApplicationRecord
   validates_presence_of :username
 
   acts_as_voter
+
+  private
+
+  def add_unsubscribe_hash
+    unsubscribe_hash = SecureRandom.hex
+  end
 end

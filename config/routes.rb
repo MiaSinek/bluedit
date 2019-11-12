@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'notification_subscriptions/unsubscribe/:unsubscribe_hash' => 'notification_subscriptions#unsubscribe', :as => 'unsubscribe_from_notifications'
 
   devise_for :users
 
