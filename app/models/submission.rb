@@ -8,7 +8,7 @@ class Submission < ApplicationRecord
   belongs_to :community
   has_many :comments, dependent: :destroy
 
-  validate :image_or_video, if: -> { submission_image.present? || submission_video.present? }
+  validate :validate_correct_content
 
   validates :title, presence: true
   validates :body, length: { maximum: 8000 }
@@ -18,9 +18,16 @@ class Submission < ApplicationRecord
 
   private
 
-  def image_or_video
-    if submission_image.present? && submission_video.present?
-      errors.add(:base, "Add an image or a video, not both")
+  def validate_correct_content
+    content_count = [url, body, submission_image, submission_video].map(&:present?).count(true)
+
+    if content_count == 0
+      errors.add :base, "Please add some content!"
+    elsif content_count == 2 # the UI is reseting the form when switching tabs, the only way to
+                             # add two contents is in the video/image upload tab, hance content_count == 2
+      errors.add :base, "Too much info! You can add video OR image, but not both!"
     end
   end
 end
+
+
