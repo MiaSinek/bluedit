@@ -40,6 +40,8 @@ gem 'acts_as_votable', '~> 0.12.1'
 #Simple, efficient background processing for Ruby.
 gem 'sidekiq', '~> 6.0', '>= 6.0.3'
 
+gem 'letter_opener_web', '~> 1.3', '>= 1.3.4'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 

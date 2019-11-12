@@ -61,5 +61,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  
+  # Use Letter Opener Web to deliver email
+  # Check routes.rb for the URL to see your emails
+  config.action_mailer.delivery_method = :letter_opener_web
 end
