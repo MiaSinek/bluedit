@@ -4,6 +4,13 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount Sidekiq::Web => '/sidekiq'
 
+  authenticate :user, lambda { |u| u.admin? } do
+    namespace :admin do
+      resources :users
+      root to: "users#index"
+    end
+  end
+
   resources :communities do
     resource :subscriptions
   end
