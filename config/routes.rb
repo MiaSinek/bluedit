@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 
   authenticate :user, lambda { |u| u.admin? } do
     namespace :admin do
-      resources :users
+      resources :users, only: [:index]
+      resources :submissions, only: [:index]
       root to: "users#index"
     end
   end

@@ -1,4 +1,8 @@
 module UsersHelper
+  def author_of(record)
+    user_signed_in? && (current_user.id == record.user_id || current_user.admin)
+  end
+
   def gravatar_for(user, styles: "rounded-full")
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}"

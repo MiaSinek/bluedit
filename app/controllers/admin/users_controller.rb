@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
   def index
-    @users = User.all.sort
+    @users = User.all.order(username: :asc)
   end
 end
