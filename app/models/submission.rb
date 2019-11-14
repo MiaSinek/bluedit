@@ -9,10 +9,11 @@ class Submission < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   validate :validate_correct_content
-
   validates :title, presence: true
   validates :body, length: { maximum: 8000 }
   validates :url, url: { allow_blank: true }
+
+  has_rich_text :body
 
   acts_as_votable
 
