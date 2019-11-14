@@ -39,8 +39,10 @@ gem 'inline_svg', '~> 1.5', '>= 1.5.2'
 gem 'acts_as_votable', '~> 0.12.1'
 #Simple, efficient background processing for Ruby.
 gem 'sidekiq', '~> 6.0', '>= 6.0.3'
-
+#Check your sent emails
 gem 'letter_opener_web', '~> 1.3', '>= 1.3.4'
+#Ransack is the successor to the MetaSearch gem. It improves and expands upon MetaSearch's functionality, but does not have a 100%-compatible API.
+gem 'ransack', '~> 2.3'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
