@@ -4,14 +4,7 @@ feature "user creates community" do
   scenario "successfully" do
     user = User.create(username: "Someone", email: "someone@example.com", password: "password", password_confirmation: "password")
 
-    visit root_path
-
-    click_on "Login"
-
-    fill_in "user[email]", with: "someone@example.com"
-    fill_in "user[password]", with: "password"
-
-    click_on "Log in"
+    sign_in user.email, user.password
 
     click_on "New Community"
 
