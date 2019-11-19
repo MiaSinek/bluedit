@@ -1,5 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+require "capybara/rspec"
 require 'support/features/sign_in.rb'
 require 'support/database_cleaner.rb'
 
@@ -62,6 +63,16 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include Features, type: :feature
+
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(app, browser: :chrome)
+  end
+
+  Capybara.configure do |config|
+    config.default_max_wait_time = 10 #seconds
+    config.default_driver = :selenium
+    # config.always_include_port = true
+  end
 end
 
 Shoulda::Matchers.configure do |config|
@@ -70,3 +81,4 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
