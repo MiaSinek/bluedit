@@ -2,7 +2,9 @@
 require 'spec_helper'
 require "capybara/rspec"
 require 'support/features/sign_in.rb'
+require 'support/factory_bot.rb'
 require 'support/database_cleaner.rb'
+
 
 ENV['RAILS_ENV'] ||= 'test'
 
@@ -68,10 +70,14 @@ RSpec.configure do |config|
     Capybara::Selenium::Driver.new(app, browser: :chrome)
   end
 
-  Capybara.configure do |config|
-    config.default_max_wait_time = 10 #seconds
-    config.default_driver = :selenium
-    # config.always_include_port = true
+  config.before do
+    example = RSpec.current_example
+
+    Capybara.current_driver = if example.metadata[:js]
+      Capybara.javascript_driver
+    else
+      Capybara.default_driver
+    end
   end
 end
 
