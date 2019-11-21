@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "user creates community" do
   scenario "successfully" do
-    user = User.create(username: "Someone", email: "someone@example.com", password: "password", password_confirmation: "password")
+    user = create(:user)
 
     sign_in user.email, user.password
 
