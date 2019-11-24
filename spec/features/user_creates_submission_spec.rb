@@ -1,3 +1,4 @@
+require 'support/features/sign_in.rb'
 require "rails_helper"
 
 feature "user creates submission" do
