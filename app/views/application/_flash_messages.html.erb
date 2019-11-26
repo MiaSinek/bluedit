@@ -1,0 +1,3 @@
+<% flash.each do |type, flash_message| %>
+  <%= render 'flash_message', message: flash_message, type: type %>
+<% end %>
