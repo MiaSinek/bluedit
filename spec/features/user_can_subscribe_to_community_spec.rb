@@ -3,7 +3,6 @@ require "rails_helper"
 
 feature "user subscribes to community" do
   scenario "successfully", js: true do
-    # user = create(:user)
     community = create(:community)
 
     sign_in community.user.email, community.user.password
