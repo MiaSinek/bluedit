@@ -1,7 +1,10 @@
 var subscribedBlock = document.getElementById("subscribed_block");
 var subscribedCount = document.getElementById("subscribed_count");
+var body = document.getElementsByTagName('body')[0];
 
 subscribedBlock.innerHTML = "";
 subscribedCount.innerHTML = "";
 subscribedBlock.insertAdjacentHTML("beforeend", "<%= escape_javascript(render 'subscription', community: community) %>");
 subscribedCount.insertAdjacentHTML("beforeend", "<%= escape_javascript(community.subscriptions.count) %>")
+
+body.insertAdjacentHTML("afterbegin", "<%= escape_javascript(render 'flash_messages') %>")
