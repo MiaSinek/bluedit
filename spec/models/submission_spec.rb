@@ -14,7 +14,7 @@ describe Submission do
 
   describe 'validate_correct_content' do
     it 'should be invalid if no content is added' do
-      submission = build_stubbed(:submission, title: '')
+      submission = build_stubbed(:submission, body: '')
 
       submission.valid?
 
