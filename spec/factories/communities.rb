@@ -6,7 +6,7 @@ FactoryBot.define do
     sequence(:user) { |n| User.all[n] || association(:user) }
 
     #  create submission data after the community has been created
-    factory :community_with_submissions do
+    trait :with_submissions do
       # submission_count is declared as a transient attribute and available in
       # attributes on the factory, as well as the callback via the evaluator
       transient do
