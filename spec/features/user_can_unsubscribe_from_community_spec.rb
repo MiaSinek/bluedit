@@ -5,7 +5,7 @@ feature "user unsubscribes from community" do
   scenario "successfully", js: true do
     subscription = create(:subscription)
 
-    sign_in subscription.community.user.email, subscription.community.user.password
+    sign_in subscription.user.email, subscription.user.password
 
     visit community_path(subscription.community.id)
     click_on "Unsubscribe"

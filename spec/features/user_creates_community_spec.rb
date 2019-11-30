@@ -1,4 +1,5 @@
 require 'support/features/sign_in.rb'
+require 'support/features/create_community.rb'
 require "rails_helper"
 
 feature "user creates community" do
@@ -6,17 +7,19 @@ feature "user creates community" do
     user = create(:user)
 
     sign_in user.email, user.password
-
-    click_on "New Community"
-
-    fill_in "community[name]", with: "rubyonrails"
-    fill_in "community[title]", with: "Ruby on Rails"
-    fill_in "community[sidebar]", with: "Ruby on Rails Palooza"
-    fill_in "community[description]", with: "Best Ruby on Rails stuff"
-
-    click_on "Create Community"
+    create_community
 
     expect(page).to have_css "h1", text: "w/rubyonrails"
     expect(page).to have_css "h3", text: "Ruby on Rails"
+  end
+
+  scenario "and is automatically subscribed to it" do
+    user = create(:user)
+
+    sign_in user.email, user.password
+    create_community
+
+    expect(page).to have_link text: 'Unsubscribe'
+    expect(page).to have_css "p#subscribed_count", text: "1"
   end
 end
