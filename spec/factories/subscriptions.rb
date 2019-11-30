@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :subscription do
-    association :community
-    user { User.first || association(:user) }
+    association(:community)
+    association(:user)
   end
  end
