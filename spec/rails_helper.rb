@@ -63,19 +63,21 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.include Features, type: :feature
+  if defined? Features
+    config.include Features, type: :feature
 
-  Capybara.register_driver :selenium do |app|
-    Capybara::Selenium::Driver.new(app, browser: :chrome)
-  end
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, browser: :chrome)
+    end
 
-  config.before do
-    example = RSpec.current_example
+    config.before do
+      example = RSpec.current_example
 
-    Capybara.current_driver = if example.metadata[:js]
-      Capybara.javascript_driver
-    else
-      Capybara.default_driver
+      Capybara.current_driver = if example.metadata[:js]
+        Capybara.javascript_driver
+      else
+        Capybara.default_driver
+      end
     end
   end
 end
