@@ -21,6 +21,8 @@ class CommunitiesController < ApplicationController
 
     respond_to do |format|
       if @community.save
+        Subscription.create(community_id: @community.id, user_id: current_user.id)
+
         format.html { redirect_to @community, notice: 'Community was successfully created.' }
         format.json { render :show, status: :created, location: @community }
       else
