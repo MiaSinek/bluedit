@@ -3,7 +3,7 @@ FactoryBot.define do
   factory :community do
     sequence(:name) { |n| "Test community#{n} name" }
     sequence(:title) { |n| "Test community#{n} title" }
-    sequence(:user) { |n| User.all[n] || association(:user) }
+    sequence(:user) { association(:user) }
 
     #  create submission data after the community has been created
     trait :with_submissions do
