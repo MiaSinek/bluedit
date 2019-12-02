@@ -8,8 +8,8 @@ FactoryBot.define do
     body { "Test submission body" }
   end
 
-  trait :with_link do
-    link { 'https://www.somelink.com' }
+  trait :with_url do
+    url { 'https://www.somelink.com' }
   end
 
   trait :with_image do
