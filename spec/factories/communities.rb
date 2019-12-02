@@ -18,7 +18,9 @@ FactoryBot.define do
       # attributes; `create_list`'s second argument is the number of records
       # to create and we make sure the user is associated properly to the post
       after(:create) do |community, evaluator|
-        create_list(:submission, evaluator.submissions_count, community: community)
+        evaluator.submissions_count.times do
+          create(:submission, :with_body, community: community)
+        end
       end
     end
   end

@@ -60,7 +60,7 @@ feature "user creates submission" do
     find(:xpath, '//a[contains(., "Image")]').click
 
     fill_in 'submission[title]', with: 'Test Image Submission'
-    attach_file("Upload Image", Rails.root + "spec/fixtures/images/image1.jpeg")
+    attach_file("Upload Image", Rails.root + "spec/fixtures/files/image1.jpeg")
 
     select community.name, from: 'submission[community_id]'
 
@@ -83,7 +83,7 @@ feature "user creates submission" do
     find(:xpath, '//a[contains(., "Video")]').click
 
     fill_in 'submission[title]', with: 'Test Video Submission'
-    attach_file("Upload Video", Rails.root + "spec/fixtures/videos/video1.mp4")
+    attach_file("Upload Video", Rails.root + "spec/fixtures/files/video1.mp4")
 
     select community.name, from: 'submission[community_id]'
 

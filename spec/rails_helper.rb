@@ -89,3 +89,7 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+FactoryBot::SyntaxRunner.class_eval do
+  include ActionDispatch::TestProcess
+end
+
