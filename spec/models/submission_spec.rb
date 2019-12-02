@@ -20,15 +20,11 @@ describe Submission do
     end
   end
 
-
-
   describe 'associations' do
     it { should belong_to(:user) }
     it { should belong_to(:community) }
     it { should have_many(:comments).dependent(:destroy) }
   end
-
-
 
   describe 'validate_correct_content' do
     context 'should be invalid if' do
