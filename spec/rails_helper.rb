@@ -66,6 +66,8 @@ RSpec.configure do |config|
   if defined? Features
     config.include Features, type: :feature
 
+    config.include Warden::Test::Helpers
+
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, browser: :chrome)
     end
