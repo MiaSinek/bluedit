@@ -51,9 +51,9 @@ class SubmissionsController < ApplicationController
   def upvote
     unless current_user.voted_for? @submission
       @submission.upvote_by current_user
-      format.js { flash.now[:notice] = "Successfully upvoted submission" }
+      flash.now[:notice] = "Successfully upvoted submission"
     else
-      format.js { flash.now[:notice] = "You already voted for this submission" }
+      flash.now[:notice] = "You already voted for this submission"
     end
   end
 
