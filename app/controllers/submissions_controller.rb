@@ -25,6 +25,9 @@ class SubmissionsController < ApplicationController
 
   # GET /submissions/1/edit
   def edit
+    if current_user != @submission.user
+      redirect_to @submission, alert: "You can not edit someone else's submission. Sorryyy!"
+    end
   end
 
   # POST /submissions
@@ -46,14 +49,10 @@ class SubmissionsController < ApplicationController
   # PATCH/PUT /submissions/1
   # PATCH/PUT /submissions/1.json
   def update
-    respond_to do |format|
-      if @submission.update(submission_params)
-        format.html { redirect_to @submission, notice: 'Submission was successfully updated.' }
-        format.json { render :show, status: :ok, location: @submission }
-      else
-        format.html { render :edit }
-        format.json { render json: @submission.errors, status: :unprocessable_entity }
-      end
+    if @submission.update(submission_params)
+      redirect_to @submission, notice: 'Submission was successfully updated.'
+    else
+      render :edit
     end
   end
 
