@@ -2,8 +2,6 @@ class SubmissionsController < ApplicationController
   before_action :set_submission, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate_user!, except: [:show, :index]
 
-  # GET /submissions
-  # GET /submissions.json
   def index
     @submissions = if user_signed_in?
       current_user.submissions_subscribed_to
@@ -12,42 +10,30 @@ class SubmissionsController < ApplicationController
     end
   end
 
-  # GET /submissions/1
-  # GET /submissions/1.json
   def show
     @comment = Comment.new
   end
 
-  # GET /submissions/new
   def new
     @submission = current_user.submissions.new
   end
 
-  # GET /submissions/1/edit
   def edit
     if current_user != @submission.user
       redirect_to @submission, alert: "You can not edit someone else's submission. Sorryyy!"
     end
   end
 
-  # POST /submissions
-  # POST /submissions.json
   def create
     @submission = current_user.submissions.new(submission_params)
 
-    respond_to do |format|
-      if @submission.save
-        format.html { redirect_to @submission, notice: 'Submission was successfully created.' }
-        format.json { render :show, status: :created, location: @submission }
-      else
-        format.html { render :new }
-        format.json { render json: @submission.errors, status: :unprocessable_entity }
-      end
+    if @submission.save
+      redirect_to @submission, notice: 'Submission was successfully created.'
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /submissions/1
-  # PATCH/PUT /submissions/1.json
   def update
     if @submission.update(submission_params)
       redirect_to @submission, notice: 'Submission was successfully updated.'
@@ -60,24 +46,16 @@ class SubmissionsController < ApplicationController
   # DELETE /submissions/1.json
   def destroy
     @submission.destroy
-    respond_to do |format|
-      format.html { redirect_to submissions_url, notice: 'Submission was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+
+    redirect_to submissions_url, notice: 'Submission was successfully destroyed.'
   end
 
   def upvote
-    respond_to do |format|
-      unless current_user.voted_for? @submission
-        @submission.upvote_by current_user
-        # format.html { redirect_back(fallback_location: root_path, notice: 'Glad you liked it!') }
-        # format.json { head :no_content }
-        format.js { flash.now[:notice] = "Successfully upvoted submission" }
-      else
-        # format.html { redirect_back(fallback_location: root_path, notice: "Nah, I didn't like it either!")  }
-        # format.json { head :no_content }
-        format.js { flash.now[:notice] = "You already voted for this submission" }
-      end
+    unless current_user.voted_for? @submission
+      @submission.upvote_by current_user
+      format.js { flash.now[:notice] = "Successfully upvoted submission" }
+    else
+      format.js { flash.now[:notice] = "You already voted for this submission" }
     end
   end
 
