@@ -1,23 +1,9 @@
-<% if user_signed_in? %>
-  <%= link_to upvote_submission_path(submission), remote: true, method: :put, class: "block text-center" do %>
+  <%= link_to upvote_submission_path(submission), remote: user_signed_in?, method: :put, class: "block text-center" do %>
     <%= render_svg "icons/up-vote", title: "upvote", styles: "fill-current text-gray-600 hover:text-gray-500" %>
   <% end %>
 
   <span class="text-gray-700 text-center block mt-1 js-votes"> <%= submission.total_vote_count %></span>
 
-  <%= link_to downvote_submission_path(submission), remote: true, method: :put, class: "block text-center" do %>
+  <%= link_to downvote_submission_path(submission), remote: user_signed_in?, method: :put, class: "block text-center" do %>
     <%= render_svg "icons/down-vote", title: "downvote", styles: "fill-current text-gray-600 hover:text-gray-500" %>
   <% end %>
-
-<% else %>
-
-  <%= link_to new_user_session_path, class: "block text-center" do %>
-    <%= render_svg "icons/up-vote", title: "upvote", styles: "fill-current text-gray-600 hover:text-gray-500" %>
-  <% end %>
-
-  <span class="text-gray-700 text-center block mt-1"> <%= submission.total_vote_count %> </span>
-
-  <%= link_to new_user_session_path, class: "block text-center" do %>
-    <%= render_svg "icons/down-vote", title: "downvote", styles: "fill-current text-gray-600 hover:text-gray-500" %>
-  <% end %>
-<% end %>
