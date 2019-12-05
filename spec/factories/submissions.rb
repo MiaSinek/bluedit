@@ -19,4 +19,17 @@ FactoryBot.define do
   trait :with_video do
     submission_video { fixture_file_upload 'spec/fixtures/files/video1.mp4', 'video/mp4' }
   end
+
+  trait :with_comments do
+    transient do
+      comments_count { 2 }
+    end
+
+    after(:create) do |submission, evaluator|
+      evaluator.comments_count.times do
+        create(:comment, submission: submission, user: submission.user)
+      end
+    end
+
+  end
 end
