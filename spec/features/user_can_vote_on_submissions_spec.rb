@@ -1,6 +1,4 @@
-module Features; end
 require "rails_helper"
-
 
 feature "User upvotes submission" do
   scenario "successfully", js: true do
@@ -8,7 +6,7 @@ feature "User upvotes submission" do
     submission = community.submissions.last
     user = create(:user)
 
-    login_as(user, :scope => :user)
+    login_as user
 
     visit submission_path(submission)
 
@@ -24,7 +22,7 @@ feature "User downvotes submission" do
     submission = community.submissions.last
     user = create(:user)
 
-    login_as(user, :scope => :user)
+    login_as user
 
     visit submission_path(submission)
 

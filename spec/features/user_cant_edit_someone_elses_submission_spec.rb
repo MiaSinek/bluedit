@@ -1,4 +1,3 @@
-require 'support/features/sign_in.rb'
 require "rails_helper"
 
 feature "user tries to edit someone elses submission" do
@@ -7,7 +6,7 @@ feature "user tries to edit someone elses submission" do
     @user = create(:user)
     @submission = @community.submissions.last
 
-    login_as(@user, :scope => :user)
+    login_as @user
   end
 
   scenario "but there is no edit button on the submission's show page" do

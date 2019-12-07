@@ -1,4 +1,3 @@
-require 'support/features/sign_in.rb'
 require "rails_helper"
 
 feature "user edits own submission" do
@@ -7,7 +6,7 @@ feature "user edits own submission" do
     community2 = create(:community, :with_submissions, submissions_count: 1)
     submission = community2.submissions.last
 
-    login_as(submission.user, :scope => :user)
+    login_as submission.user
 
     visit submission_path(submission)
 
@@ -26,7 +25,7 @@ feature "There is an 'Edit' link" do
     @community = create(:community, :with_submissions, submissions_count: 1)
     @submission = @community.submissions.last
 
-    login_as(@submission.user, :scope => :user)
+    login_as @submission.user
   end
 
   scenario "on the user's own submission's show page" do

@@ -1,12 +1,9 @@
-require 'support/features/sign_in.rb'
 require "rails_helper"
 
 feature "user goes to homepage" do
   scenario "doens't sees any submissions because (s)he is not subscribed to any community" do
     community_with_submissions_1 = create(:community, :with_submissions)
-    user = create(:user)
-
-    sign_in user.email, user.password
+    login_as create(:user)
 
     expect(page).not_to have_css('div[id*="submission-"]')
   end
@@ -18,7 +15,8 @@ feature "user goes to homepage" do
     subscription = create(:subscription)
 
     #Sign in with the user that has a subscription
-    sign_in subscription.user.email, subscription.user.password
+    login_as subscription.user
+    visit root_path
 
     #Expect subscribed user to see all five submissions belonging to the subscribed community
     expect(page).to have_css('div[id*="submission-"]', count: 5)

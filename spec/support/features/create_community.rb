@@ -1,5 +1,7 @@
 module Features
   def create_community
+    visit root_path
+
     click_on "New Community"
 
     fill_in "community[name]", with: "rubyonrails"

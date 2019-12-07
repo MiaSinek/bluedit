@@ -58,17 +58,11 @@ class SubmissionsController < ApplicationController
   end
 
   def downvote
-    respond_to do |format|
-      unless current_user.voted_for? @submission
-        format.html { redirect_back(fallback_location: root_path) }
-        format.json { head :no_content }
-        format.js { flash.now[:notice] = "Successfully downvoted submission" }
-        @submission.downvote_by current_user
-      else
-        format.html { redirect_back(fallback_location: root_path)  }
-        format.json { head :no_content }
-        format.js { flash.now[:notice] = "You already voted for this submission" }
-      end
+    unless current_user.voted_for? @submission
+      flash.now[:notice] = "Successfully downvoted submission"
+      @submission.downvote_by current_user
+    else
+      flash.now[:notice] = "You already voted for this submission"
     end
   end
 

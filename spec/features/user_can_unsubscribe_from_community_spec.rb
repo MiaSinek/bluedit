@@ -1,11 +1,10 @@
-require 'support/features/sign_in.rb'
 require "rails_helper"
 
 feature "user unsubscribes from community" do
   scenario "successfully", js: true do
     subscription = create(:subscription)
 
-    sign_in subscription.user.email, subscription.user.password
+    login_as subscription.user
 
     visit community_path(subscription.community.id)
     click_on "Unsubscribe"
