@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to submission_path(@submission)
+    flash.now[:notice] = "Comment was successfully destroyed."
   end
 
   def upvote
