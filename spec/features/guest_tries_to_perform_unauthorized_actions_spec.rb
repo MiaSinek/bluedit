@@ -77,4 +77,28 @@ feature "guest tries to perform unauthorized action:" do
     expect(current_path).to eq(new_user_session_path)
     expect(page).to have_text("You need to log in or sign up before continuing.")
   end
+
+  scenario "delete submission, but there is no delete button on the submission's show page" do
+    submission = create(:submission, :with_body)
+    visit submission_path(submission)
+
+    expect(page).not_to have_css "a[href='#{submission_path(submission)}'][role='delete-submission']"
+  end
+
+  scenario "delete submission, but there is no delete button on the root path" do
+    submission = create(:submission, :with_body)
+
+    visit root_path
+
+    expect(page).to have_css "div[id='submission-#{submission.id}']"
+    expect(page).not_to have_css "a[href='#{submission_path(submission)}'][role='delete-submission']"
+  end
+
+  scenario "delete submission, but there is no delete button on community listing page" do
+    submission = create(:submission, :with_body)
+    visit community_path(submission.community)
+
+    expect(page).to have_css "div[id='submission-#{submission.id}']"
+    expect(page).not_to have_css "a[href='#{submission_path(submission)}'][role='delete-submission']"
+  end
 end
