@@ -30,7 +30,7 @@
             <%= render_svg 'icons/edit', title: "Edit", styles: "fill-current text-gray-600 icon-sm" %>
           <% end %>
 
-          <%= link_to submission, method: :delete, class:"no-underline", data: { confirm: 'Are you sure?' } do %>
+          <%= link_to submission, method: :delete, class:"no-underline", data: { confirm: 'Are you sure?' }, role: "delete-submission" do %>
             <%= render_svg 'icons/delete', title: "Delete", styles: "fill-current text-gray-500 icon-sm" %>
           <% end %>
         </div>
