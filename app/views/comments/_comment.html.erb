@@ -19,7 +19,7 @@
       <%= link_to  edit_submission_comment_path(comment.submission, comment), class: "no-underline pr-1", remote: true do %>
        <%= render_svg 'icons/edit', styles: "fill-current text-gray-500 icon-sm hover:text-gray-600" %>
       <% end %>
-      <%= link_to submission_comment_path(comment.submission, comment), method: :delete,  data: { confirm: 'Are you sure?' }, class: "no-underline" do %>
+      <%= link_to submission_comment_path(comment.submission, comment), method: :delete,  data: { confirm: 'Are you sure?' }, class: "no-underline", role: "delete-comment", remote: true do %>
       <%= render_svg 'icons/delete', styles: "fill-current text-gray-500 icon-sm hover:text-gray-600" %>
       <% end %>
     <% end %>
