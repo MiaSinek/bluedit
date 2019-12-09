@@ -101,4 +101,11 @@ feature "guest tries to perform unauthorized action:" do
     expect(page).to have_css "div[id='submission-#{submission.id}']"
     expect(page).not_to have_css "a[href='#{submission_path(submission)}'][role='delete-submission']"
   end
+
+  scenario "subscribe to a community" do
+    community = create(:community)
+
+    guest_is_redirected_to_login_when_clicking_on_text("Subscribe", community_path(community))
+  end
+
 end
