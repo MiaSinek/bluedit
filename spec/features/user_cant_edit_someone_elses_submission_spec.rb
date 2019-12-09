@@ -18,7 +18,7 @@ feature "user tries to edit someone elses submission" do
   scenario "but there is no edit button on the root path" do
     create(:subscription, user: @user, community: @community)
 
-    visit root_path(@submission)
+    visit root_path
 
     expect(page).to have_css "div[id='submission-#{@submission.id}']"
     expect(page).not_to have_css "a[href='#{edit_submission_path(@submission)}']"
