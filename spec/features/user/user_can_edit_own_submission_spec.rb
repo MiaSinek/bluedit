@@ -18,6 +18,20 @@ feature "user edits own submission" do
     expect(page).to have_css "div.submission-content h1.text-xl", text: "Edited Submission Title"
     expect(page).to have_css "h1", text: community2.name
   end
+
+  scenario "unsuccessfully" do
+    submission = create(:submission, :with_body)
+
+    login_as submission.user
+
+    visit edit_submission_path(submission)
+
+    fill_in 'submission[title]', with: ''
+    click_on 'Update Submission'
+
+    expect(page).to have_text "1 error prohibited this submission from being saved"
+    expect(page).to have_text "Title can't be blank"
+  end
 end
 
 feature "There is an 'Edit' link" do
