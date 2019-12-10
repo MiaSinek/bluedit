@@ -68,4 +68,10 @@ feature "user creates submission" do
     expect(page).to have_css('h1', text: 'Test Video Submission')
     expect(page).to have_css("video[src*='video1.mp4']")
   end
+
+  scenario "unsuccessfully" do
+    click_on "Create Submission"
+
+    expect(page).to have_text('errors prohibited this submission from being saved')
+  end
 end
