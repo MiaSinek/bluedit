@@ -35,17 +35,6 @@ feature "guest tries to perform unauthorized action:" do
     )
   end
 
-  scenario "upvote comment on submission's show page" do
-    community = create(:community)
-    submission = create(:submission, :with_body, :with_comments, community: community)
-    comment = submission.comments.sample
-
-    guest_is_redirected_to_login_when_clicking_on_css_element(
-      "#comments #comment-#{comment.id}>div>a:first-child",
-      submission_path(submission)
-    )
-  end
-
   scenario "edit submisssion, but there is no edit button on the submission's show page" do
     submission = create(:submission, :with_body)
     visit submission_path(submission)
