@@ -1,7 +1,7 @@
 require "rails_helper"
 
-feature "guest tries to delete comment" do
-  scenario "but there is no delete button on the comment on the submission's show page" do
+feature "guest tries to delete comment on the submisson's show page" do
+  scenario "but there is no delete button" do
     submission = create(:submission, :with_body, :with_comments)
     comment = submission.comments.sample
 
