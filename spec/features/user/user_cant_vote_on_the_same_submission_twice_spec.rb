@@ -17,6 +17,7 @@ feature "User votes on submission twice" do
 
     upvote_link.click
     downvote_link.click
+    upvote_link.click
 
     expect(page).to have_css("div#submission-#{submission.id} div.submission-voting span", text: 1)
     expect(page).to have_selector("#voting-notice", text: "You already voted for this submission")
