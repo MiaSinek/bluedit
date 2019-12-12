@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
     if @comment.save
       SubmissionMailer.with(comment: @comment, submission: @submission).new_response.deliver_later
     else
-      redirect_to submission_path(@submission), alert: "Comment could not be updated. Please add some awesomesauce!"
+      redirect_to submission_path(@submission), alert: "Comment could not be created. Please add some awesomesauce!"
     end
   end
 
