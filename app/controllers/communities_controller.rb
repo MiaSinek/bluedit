@@ -19,37 +19,27 @@ class CommunitiesController < ApplicationController
   def create
     @community = current_user.communities_authored.new(community_params)
 
-    respond_to do |format|
-      if @community.save
-        Subscription.create(community_id: @community.id, user_id: current_user.id)
+    if @community.save
+      Subscription.create(community_id: @community.id, user_id: current_user.id)
 
-        format.html { redirect_to @community, notice: 'Community was successfully created.' }
-        format.json { render :show, status: :created, location: @community }
-      else
-        format.html { render :new }
-        format.json { render json: @community.errors, status: :unprocessable_entity }
-      end
+      redirect_to @community, notice: 'Community was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @community.update(community_params)
-        format.html { redirect_to @community, notice: 'Community was successfully updated.' }
-        format.json { render :show, status: :ok, location: @community }
-      else
-        format.html { render :edit }
-        format.json { render json: @community.errors, status: :unprocessable_entity }
-      end
+    if @community.update(community_params)
+      redirect_to @community, notice: 'Community was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @community.destroy
-    respond_to do |format|
-      format.html { redirect_to communities_url, notice: 'Community was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+
+    redirect_to communities_url, notice: 'Community was successfully destroyed.'
   end
 
   private
