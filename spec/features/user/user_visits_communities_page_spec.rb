@@ -7,9 +7,7 @@ feature "User visits communities page" do
 
     visit communities_path
 
-    expect(page).to have_text("Test community1 title")
-    expect(page).to have_text("Test community2 title")
-    expect(page).to have_text("Test community1 name")
-    expect(page).to have_text("Test community2 name")
+    expect(page.text).to match(/Test community\d+ title/)
+    expect(page.text).to match(/Test community\d+ name/)
   end
 end
