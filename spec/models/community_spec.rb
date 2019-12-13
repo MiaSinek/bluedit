@@ -12,8 +12,8 @@ describe Community do
 
   describe 'associations' do
     it { should belong_to(:user) }
-    it { should have_many(:submissions)}
-    it { should have_many(:subscriptions)}
+    it { should have_many(:submissions).dependent(:destroy)}
+    it { should have_many(:subscriptions).dependent(:destroy)}
     it { should have_many(:users).through(:subscriptions)}
   end
 
