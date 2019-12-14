@@ -11,8 +11,8 @@ feature "User votes on submission twice" do
 
     visit submission_path(submission)
 
-    upvote_link = find(:css, "a[href='#{upvote_submission_path(submission)}']")
-    downvote_link = find(:css, "a[href='#{downvote_submission_path(submission)}']")
+    upvote_link = find(:css, "a[href='#{upvote_path(type: :submission, id: submission.id)}'][data-method='post']")
+    downvote_link = find(:css, "a[href='#{downvote_path(type: :submission, id: submission.id)}'][data-method='delete']")
 
 
     upvote_link.click
@@ -20,6 +20,6 @@ feature "User votes on submission twice" do
     upvote_link.click
 
     expect(page).to have_css("div#submission-#{submission.id} div.submission-voting span", text: 1)
-    expect(page).to have_selector("#voting-notice", text: "You already voted for this submission")
+    expect(page).to have_selector("div#submission-#{submission.id}-voting-notice", text: "You already voted for this submission")
   end
 end

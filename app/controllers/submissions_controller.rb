@@ -48,24 +48,6 @@ class SubmissionsController < ApplicationController
     redirect_to submissions_url, notice: 'Submission was successfully destroyed.'
   end
 
-  def upvote
-    unless current_user.voted_for? @submission
-      @submission.upvote_by current_user
-      flash.now[:notice] = "Successfully upvoted submission"
-    else
-      flash.now[:notice] = "You already voted for this submission"
-    end
-  end
-
-  def downvote
-    unless current_user.voted_for? @submission
-      flash.now[:notice] = "Successfully downvoted submission"
-      @submission.downvote_by current_user
-    else
-      flash.now[:notice] = "You already voted for this submission"
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_submission

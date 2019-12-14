@@ -1,5 +1,5 @@
-var vote = document.querySelector("#submission-<%=@submission.id %> .js-votes");
-vote.innerHTML = "<%=escape_javascript(@submission.total_vote_count) %>";
+var vote = document.querySelector("#<%= params[:type] %>-<%= @vote_subject.id %> .js-votes");
+vote.innerHTML = "<%=escape_javascript(@vote_subject.total_vote_count) %>";
 
 var dynamicNotice = document.querySelector('.js-notice');
 
@@ -7,7 +7,7 @@ dynamicNotice.innerHTML = `
   <div class="bg-white shadow rounded-lg animated fadeInUp">
     <div class="px-2 py-4 text-purple-600 text-center leading-normal font-medium font-sans flex justify-center items-center">
       <%= render_svg "icons/info", styles:"fill-current text-purple-600 icon-sm ml-4" %>
-      <div class="flex-1" id="voting-notice"><%= notice %></div>
+      <div class="flex-1" id="<%= params[:type] %>-<%= @vote_subject.id %>-voting-notice"><%= notice %></div>
     </div>
   </div>
 `;
@@ -15,3 +15,7 @@ dynamicNotice.innerHTML = `
 setTimeout(function() {
   dynamicNotice.innerHTML = "";
 }, 3000);
+
+
+
+
