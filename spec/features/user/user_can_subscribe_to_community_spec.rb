@@ -14,7 +14,7 @@ feature "user subscribes to community" do
     click_on "Subscribe"
 
     expect(page).to have_link text: 'Unsubscribe'
-    expect(page).to have_css "p#subscribed_count", text: "2"
+    expect(page).to have_css "p#subscribed_count", text: "1"
     expect(page).to have_text "You have successfully subscribed to #{community.name}"
   end
 end

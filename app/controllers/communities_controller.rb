@@ -19,7 +19,7 @@ class CommunitiesController < ApplicationController
   def create
     @community = current_user.communities_authored.new(community_params)
 
-    if @community.save
+    if CommunityCreator.new(@community, current_user).save
       redirect_to @community, notice: 'Community was successfully created.'
     else
       render :new
