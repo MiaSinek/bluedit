@@ -30,28 +30,6 @@ class CommentsController < ApplicationController
     flash.now[:notice] = "Comment was successfully destroyed."
   end
 
-  def upvote
-    @comment = @submission.comments.find(params[:id])
-
-    unless current_user.voted_for? @comment
-      @comment.upvote_by current_user
-      flash.now[:notice] = "Successfully upvoted comment"
-    else
-      flash.now[:notice] = "You already voted for this comment"
-    end
-  end
-
-  def downvote
-    @comment = @submission.comments.find(params[:id])
-
-    unless current_user.voted_for? @comment
-      flash.now[:notice] = "Successfully downvoted comment"
-      @comment.downvote_by current_user
-    else
-        flash.now[:notice] = "You already voted for this comment"
-    end
-  end
-
   private
 
   def set_submission

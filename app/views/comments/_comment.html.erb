@@ -1,12 +1,12 @@
 <div class="flex items-start py-1 mt-2 items-start" id="comment-<%= comment.id %>" >
   <div class="flex flex-col items-center">
-    <%= link_to upvote_submission_comment_path(comment.submission, comment), method: :put, remote: user_signed_in? do %>
+    <%= link_to upvote_path(:comment, comment.id), method: :post, remote: user_signed_in? do %>
       <%= render_svg "icons/up-vote", title: "upvote", styles: "fill-current text-gray-600 hover:text-purple-500" %>
     <% end %>
 
     <span class="text-gray-700 text-center text-sm -mt-1 js-votes"><%= comment.total_vote_count  %></span>
 
-    <%= link_to downvote_submission_comment_path(comment.submission, comment), method: :put, remote: user_signed_in? do %>
+    <%= link_to downvote_path(:comment, comment.id), method: :delete, remote: user_signed_in? do %>
       <%= render_svg "icons/down-vote", title: "downvote", styles: "fill-current text-gray-600 hover:text-purple" %>
     <% end %>
   </div>

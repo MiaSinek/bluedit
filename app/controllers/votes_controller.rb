@@ -2,28 +2,28 @@ class VotesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    flash.now[:notice] = attempt_to :upvote
+    flash.now[:notice] = attempt_to :upvote, params[:type]
 
     render partial: 'vote'
   end
 
 
   def destroy
-    flash.now[:notice] = attempt_to :downvote
+    flash.now[:notice] = attempt_to :downvote, params[:type]
 
     render partial: 'vote'
   end
 
   private
 
-  def attempt_to(action)
+  def attempt_to(action, type)
     find_vote_subject
 
     if subject_not_voted_on_yet?
       vote!(action)
-      "Successfully #{action}d submission"
+      "Successfully #{action}d #{type}"
     else
-      "You already voted for this submission"
+      "You already voted for this #{type}"
     end
   end
 
