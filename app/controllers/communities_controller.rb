@@ -20,8 +20,6 @@ class CommunitiesController < ApplicationController
     @community = current_user.communities_authored.new(community_params)
 
     if @community.save
-      Subscription.create(community_id: @community.id, user_id: current_user.id)
-
       redirect_to @community, notice: 'Community was successfully created.'
     else
       render :new
