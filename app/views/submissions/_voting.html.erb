@@ -1,9 +1,9 @@
-  <%= link_to upvote_path(type: :submission, id: submission.id), remote: user_signed_in?, method: :post, class: "block text-center" do %>
+  <%= link_to upvote_path(:submission, submission), remote: user_signed_in?, method: :post, class: "block text-center" do %>
     <%= render_svg "icons/up-vote", title: "upvote", styles: "fill-current text-gray-600 hover:text-gray-500" %>
   <% end %>
 
   <span class="text-gray-700 text-center block mt-1 js-votes"> <%= submission.total_vote_count %></span>
 
-  <%= link_to downvote_path(type: :submission, id: submission.id), remote: user_signed_in?, method: :delete, class: "block text-center" do %>
+  <%= link_to downvote_path(:submission, submission), remote: user_signed_in?, method: :delete, class: "block text-center" do %>
     <%= render_svg "icons/down-vote", title: "downvote", styles: "fill-current text-gray-600 hover:text-gray-500" %>
   <% end %>
