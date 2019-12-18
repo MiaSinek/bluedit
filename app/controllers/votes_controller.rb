@@ -2,45 +2,26 @@ class VotesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    flash.now[:notice] = attempt_to :upvote, params[:type]
-
-    render partial: 'vote'
+    vote(:upvote)
   end
 
 
   def destroy
-    flash.now[:notice] = attempt_to :downvote, params[:type]
-
-    render partial: 'vote'
+    vote(:downvote)
   end
 
   private
 
-  def attempt_to(action, type)
-    find_vote_subject
+  def vote(action)
+    vote_subject = VoteSubjectFinder.find(params[:type], params[:id])
 
-    if subject_not_voted_on_yet?
-      vote!(action)
-      "Successfully #{action}d #{type}"
-    else
-      "You already voted for this #{type}"
-    end
-  end
+    notice = VoteCreator.new(current_user,
+                             action,
+                             vote_subject).attempt_to_vote
 
-  def find_vote_subject
-    @vote_subject = model_class.find(params[:id])
-  end
+    flash.now[:notice] = notice
 
-  def model_class
-    params[:type].capitalize.constantize
-  end
-
-  def subject_not_voted_on_yet?
-    !current_user.voted_for?(@vote_subject)
-  end
-
-  def vote!(action)
-    @vote_subject.send("#{action}_by", current_user)
+    render partial: 'vote', :locals => { vote_subject: vote_subject }
   end
 end
 
