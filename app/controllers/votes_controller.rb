@@ -15,11 +15,9 @@ class VotesController < ApplicationController
   def vote(action)
     vote_subject = VoteSubjectFinder.find(params[:type], params[:id])
 
-    notice = VoteCreator.new(current_user,
-                             action,
-                             vote_subject).attempt_to_vote
-
-    flash.now[:notice] = notice
+    flash.now[:notice] = VoteCreator.new(current_user,
+                                        action,
+                                        vote_subject).attempt_to_vote
 
     render partial: 'vote', :locals => { vote_subject: vote_subject }
   end
