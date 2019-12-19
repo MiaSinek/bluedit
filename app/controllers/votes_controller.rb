@@ -16,8 +16,8 @@ class VotesController < ApplicationController
     vote_subject = VoteSubjectFinder.find(params[:type], params[:id])
 
     flash.now[:notice] = VoteCreator.new(current_user,
-                                        action,
-                                        vote_subject).attempt_to_vote
+                                         action,
+                                         vote_subject).attempt_to_vote
 
     render partial: 'vote', :locals => { vote_subject: vote_subject }
   end
