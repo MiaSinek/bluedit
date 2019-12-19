@@ -1,61 +1,94 @@
 class SubmissionsController < ApplicationController
-  before_action :set_submission, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
 
   def index
-    @submissions = if user_signed_in?
-      current_user.submissions_subscribed_to
-    else
-      Submission.all
-    end
+    load_submissions
   end
 
   def show
-    @comment = Comment.new
+    load_submission
+    build_comment
   end
 
   def new
-    @submission = current_user.submissions.new
+    build_submission
+  end
+
+  def create
+    build_submission
+    save_submission('Submission was successfully created.') or render :new
   end
 
   def edit
+    load_submission
+    redirect_if_not_author or build_submission
+  end
+
+
+  def update
+    load_submission
+    build_submission
+    save_submission('Submission was successfully updated.') or render :edit
+  end
+
+  def destroy
+    load_submission
+    @submission.destroy
+
+    redirect_to submissions_path, notice: 'Submission was successfully destroyed.'
+  end
+
+  private
+
+  def load_submissions
+    @submissions ||= submission_scope.to_a
+  end
+
+  def load_submission
+    @submission ||=  submission_scope.find(params[:id])
+  end
+
+  def redirect_if_not_author
     if current_user != @submission.user
       redirect_to @submission, alert: "You can not edit someone else's submission. Sorryyy!"
     end
   end
 
-  def create
-    @submission = current_user.submissions.new(submission_params)
+  def build_submission
+    @submission ||= submission_scope.build
+    @submission.attributes = submission_params
+  end
 
+  def build_comment
+    @comment = Comment.new
+  end
+
+  def save_submission(notice)
     if @submission.save
-      redirect_to @submission, notice: 'Submission was successfully created.'
+      redirect_to @submission, notice: notice
+    end
+  end
+
+  def q
+    if signed_in_user_visiting_homepage?
+      current_user.submissions_subscribed_to
+    elsif signed_in_user_creating_submission?
+      current_user.submissions
     else
-      render :new
+      Submission.all
     end
   end
 
-  def update
-    if @submission.update(submission_params)
-      redirect_to @submission, notice: 'Submission was successfully updated.'
-    else
-      render :edit
-    end
+  def signed_in_user_visiting_homepage?
+    user_signed_in? && params[:action] == 'index'
   end
 
-  def destroy
-    @submission.destroy
-
-    redirect_to submissions_url, notice: 'Submission was successfully destroyed.'
+  def signed_in_user_creating_submission?
+    user_signed_in? && params[:action] == 'create'
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_submission
-      @submission = Submission.find(params[:id])
-    end
-
-    # Never trust parameters from the internet, only allow the white list through.
-    def submission_params
-      params.require(:submission).permit(:title, :body, :url, :submission_image, :submission_video, :community_id)
-    end
+  def submission_params
+    submission_params = params[:submission]
+    submission_params ? submission_params.permit(:title, :body, :url, :submission_image, :submission_video, :community_id) : {}
+  end
 end
