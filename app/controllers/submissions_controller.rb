@@ -69,7 +69,7 @@ class SubmissionsController < ApplicationController
     end
   end
 
-  def q
+  def submission_scope
     if signed_in_user_visiting_homepage?
       current_user.submissions_subscribed_to
     elsif signed_in_user_creating_submission?
