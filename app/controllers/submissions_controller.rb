@@ -40,6 +40,10 @@ class SubmissionsController < ApplicationController
 
   private
 
+  def submission_scope
+    submission_policy.scope
+  end
+
   def load_submissions
     @submissions ||= submission_scope.to_a
   end
@@ -69,22 +73,8 @@ class SubmissionsController < ApplicationController
     end
   end
 
-  def submission_scope
-    if signed_in_user_visiting_homepage?
-      current_user.submissions_subscribed_to
-    elsif signed_in_user_creating_submission?
-      current_user.submissions
-    else
-      Submission.all
-    end
-  end
-
-  def signed_in_user_visiting_homepage?
-    user_signed_in? && params[:action] == 'index'
-  end
-
-  def signed_in_user_creating_submission?
-    user_signed_in? && params[:action] == 'create'
+  def submission_policy
+    @_submission_policy ||= SubmissionPolicy::Scope.new(current_user, params[:action])
   end
 
   def submission_params
