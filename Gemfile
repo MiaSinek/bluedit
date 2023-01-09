@@ -34,7 +34,7 @@ gem 'mini_magick', '~> 4.9', '>= 4.9.5'
 #Library for validating urls
 gem 'validate_url', '~> 1.0', '>= 1.0.8'
 #Get an SVG into your view and then style it with CSS.
-gem 'inline_svg', '~> 1.5', '>= 1.5.2'
+gem 'inline_svg', '~> 1.7'
 #Allow records to be votable
 gem 'acts_as_votable', '~> 0.12.1'
 #Simple, efficient background processing for Ruby.
